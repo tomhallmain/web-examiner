@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+
+		<h1>Web Examiner</h1>
+
+		<p>
+			Reveal selectors based on input filter settings below:
+		</p>
+
+		<div class="btn-group" style="width:100%">
+			<button type="button" class="exact" style="width:50.0%">
+			  Exact match
+			</button>
+			<button type="button" class="regex" style="width:50.0%">
+				Partial match / Regex
+			</button>
+		</div>
+		<div class="btn-group" style="width:100%">
+			<button type="button" class="data" style="width:50.0%">
+			  Reveal data<br>selectors
+			</button>
+			<button type="button" class="dataTest" style="width:50.0%">
+			  Reveal data test selectors	
+			</button>
+		</div>
+
+		<h3>Filter elements by:</h3>
+		<p>
+			<input placeholder="Tag to match" class="tag" id="userinput"/>
+			Tag
+		</p>
+		<p>
+			<input placeholder="Class val to match" class="classVal" id="userinput"/>
+			Class
+		</p>
+		<p>
+			<input placeholder="ID val to match" class="idVal" id="userinput"/>
+			ID
+		</p>
+		<p>
+			<input placeholder="Text val to match" class="textVal" id="userinput"/>
+			Text
+		</p>
+		<p>
+			<input placeholder="Attr name to match" class="attrName" id="userinput"/>
+			Attribute name
+		</p>
+		<p>
+			<input placeholder="Attr value to match" class="attrVal" id="userinput"/>
+			Attribute value
+		</p>
+
+		<p>Note classes and ids are attributes, so any search for all attribute
+		values will include a search of these as well.</p>
+
+	</body>
+</html>
+
+<script type='text/javascript' src="popup.js"></script>
+
+
