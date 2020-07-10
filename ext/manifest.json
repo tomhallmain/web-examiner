@@ -16,6 +16,9 @@
     "default_title": "Open Web Examiner",
     "default_popup": "popup/index.html"
   },
+  "icons": {
+    "128": "detective.png"
+  },
   "permissions": [
     "https://*/*",
     "http://*/*",
