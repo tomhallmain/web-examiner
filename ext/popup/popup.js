@@ -5,7 +5,7 @@ var filterSettings = {};
 
 document.addEventListener('DOMContentLoaded', function() {
   mapBtn( select('.exact') );
-  mapBtn( select('.exact') );
+  mapBtn( select('.regex') );
   mapBtn( select('.data') );
   mapBtn( select('.dataTest') );
   mapInput( select('.tag') );
