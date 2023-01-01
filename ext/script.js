@@ -4,7 +4,7 @@
 function revealSelectors(exactMatches, filters) {
   if (exactMatches) {
     var tag = filters['tag'] || '*';
-    var selectors = DOMSearchExact(tag, filters) } 
+    var selectors = DOMSearchExact(tag, filters) }
   else {
     var selectors = DOMSearchRegex(filters) }
 
@@ -12,13 +12,49 @@ function revealSelectors(exactMatches, filters) {
   return selectors;
 }
 
+function fade(element, interval) {
+  var op = 1;  // initial opacity
+  var timer = setInterval(function () {
+    if (op <= 0.1){
+      clearInterval(timer);
+      element.style.display = 'none';
+    }
+    element.style.opacity = op;
+    element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+    op -= op * 0.1;
+  }, interval);
+}
+
+function unfade(element, interval, saveDisplay) {
+  var op = 0.1;  // initial opacity
+  element.style.display = 'block';
+  var timer = setInterval(function () {
+    if (op >= 1){
+      clearInterval(timer);
+      element.style.display = saveDisplay;
+    }
+    element.style.opacity = op;
+    element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+    op += op * 0.1;
+  }, interval);
+}
+
+function slowFlash(element, delay, interval) {
+  setTimeout(function () {
+    const saveDisplay = element.style.display;
+    fade(element, interval);
+    unfade(element, interval, saveDisplay);
+  }, delay);
+}
+
 function highlight(selectors) {
   selectors.forEach( (selector, index) => {
     // Flash the selector elements one by one
-    $(this).delay(300*index).fadeIn(100).fadeOut(100).fadeIn(100)
+    slowFlash(selector, 300*index, 100);
     // Set selector element properties to something noticeable
     selector.style.borderColor = 'red';
-    selector.style.backgroundColor = 'paleGreen' })
+    selector.style.backgroundColor = 'paleGreen'
+  });
 
   selectors[0]?.scrollIntoView()
 }
@@ -98,28 +134,18 @@ function checkData(attr) {
 
 function revealDataTestSelectors() {
   // Filter all page elements by their attributes
-  selectors = $("*").filter( function() {
-    return $.makeArray(this.attributes).some(checkDataTest) })
+  selectors = [].slice.call(document.querySelectorAll("*")).filter( function(el) {
+    return [].slice.call(el.attributes).some(checkDataTest)
+  });
 
-  highlightJquery(selectors)
+  highlight(selectors);
 }
 
 function revealDataSelectors() {
   // Filter all page elements by their attributes
-  selectors = $("*").filter( function() {
-    return $.makeArray(this.attributes).some(checkData) })
+  selectors = [].slice.call(document.querySelectorAll("*")).filter( function(el) {
+    return [].slice.call(el.attributes).some(checkData)
+  });
 
-  highlightJquery(selectors)
+  highlight(selectors);
 }
-
-function highlightJquery(selectors) {
-  // Flash the selector elements one by one
-  selectors.each( (selector, index) => {
-    $(this).delay(300*index).fadeIn(100).fadeOut(100).fadeIn(100) })
-
-  // Set selector element properties to something noticeable
-  selectors.css({'border-color': 'red', 'background-color': 'paleGreen'})
-  selectors[0]?.scrollIntoView()
-}
-
-

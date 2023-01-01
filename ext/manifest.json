@@ -1,8 +1,11 @@
 {
   "name": "Web Examiner",
   "version": "0.0.3",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "description": "Scripts to make browser testing more efficient",
+  "background": {
+    "service_worker": "background-wrapper.js"
+  },
   "content_scripts": [{
     "matches": [
       "https://*/",
@@ -11,7 +14,7 @@
     "js": [ "loader.js" ],
     "persistent": true
   }],
-  "browser_action": {
+  "action": {
     "default_icon": "detective.png",
     "default_title": "Open Web Examiner",
     "default_popup": "popup/index.html"
@@ -19,14 +22,22 @@
   "icons": {
     "128": "detective.png"
   },
-  "permissions": [
+  "host_permissions": [
     "https://*/*",
-    "http://*/*",
+    "http://*/*"
+  ],
+  "permissions": [
     "activeTab",
     "tabs",
-    "debugger"
+    "scripting"
   ],
-  "web_accessible_resources": [
-    "script.js"
-  ]
+  "web_accessible_resources": [{
+    "resources": [
+      "script.js"
+    ],
+    "matches": [
+      "https://*/*",
+      "http://*/*"
+    ]
+  }]
 }
